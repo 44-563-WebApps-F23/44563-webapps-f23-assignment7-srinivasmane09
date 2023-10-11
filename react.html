@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>setTimeout</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css"
+    crossorigin="anonymous"
+  />
+  <style>
+.ui.container {
+    margin-top: 54px !important;
+}
+  </style>
+</head>
+<body>
+    <div class="ui container">
+  <h3>Srinivas Speed Check</h3>
+
+  <div id="target">
+    Your time:
+  </div>
+  <div id="count">
+    Count:
+  </div><br>
+
+  <button class="ui blue button" id="startButton" onclick="startTime()">
+    <label>Start Timer</label>
+  </button>
+
+  <button class="ui blue button" id="reactButton" onclick="recordTime()">
+    <label>React</label>
+  </button>
+
+  <div id="countdown"></div>
+</div>
+  
+  <script> 
+     var reactTime = undefined;
+
+function recordTime() 
+{
+    reactTime = Date.now();
+    console.log("React time recorded:", reactTime);
+}
+document.getElementById("reactButton").onclick = recordTime;
+function startTime() {
+    let randomCountDown = Math.round(Math.random() * (10 - 2) + 2)
+    for(let i=0;i<randomCountDown;i++){
+                setTimeout(function () {
+                    document.getElementById("count").innerHTML = "Count: " + i;
+                }, (8 - i) * 1000);
+            }
+        }
+        setTimeout(function () {
+            if (reactTime === undefined) {
+                document.getElementById("target").innerHTML = "Too Slow";
+            } else {
+                var endTime = Date.now();
+                var elapsed = endTime - reactTime;
+                document.getElementById("target").innerHTML = "Time was " + elapsed + " ms";
+            }
+        }, 8000);
+        document.getElementById("startButton").onclick = startTime;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html> <head> <style>
+
+    .flex-container {
+      display: flex;  flex-direction:row;
+      background-color:blue;
+  }
+
+.flex-container > div {  /*div children of the flex container*/
+  background-color: #f1f1f1; 
+  margin: 10px;  padding: 20px;  font-size: 30px;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) { 
+	 .flex-container{
+		 flex-direction:column;
+		 background-color:red ;
+	  }
+	}
+</style>
+<title>Merger</title>
+</head>
+
+
+
+
+	
+	<body>
+		<h1>srinivas builds a merger</h1>
+		<br>
+		<hr>
+		<div class="mb-3">
+			<label for="text">Enter Text : </label>
+			<input type="text" id="text" name="text" placeholder="Enter text to be in new div" autofocus>
+		</div>
+	
+		<br>
+			<div class="flex-container" id="target">
+			  <div class="merger">row item 1</div>   
+			  <div class="merger">row item 2</div>  
+			  <div class="merger">row item 3</div>  
+			</div>
+		
+		<br>
+		<div class=" container text-center">
+			<button onclick="makeNewDiv()">Add end</button>
+			<button onclick="addFront()" >Add Front</button>
+			<button onclick="remove()">Remove</button>
+			<button onclick="swap()">Swap</button>
+		</div>
+			
+		
+		
+	</body>
+	<script>
+		function makeNewDiv(){
+			/* make the div and its text */
+			let element = document.createElement("div")
+			element.innerHTML = document.getElementById("text").value;
+			element.className = "merger"
+			element.style.color = "red"
+	
+			/* add it to the container */
+			let container = document.getElementById('target')
+			container.appendChild(element)
+			
+		}
+	
+		function remove(){
+			let mergerItems = document.getElementsByClassName("merger")
+			const lengthOfmergerItems = mergerItems.length
+			if(lengthOfmergerItems>0)
+			{
+				mergerItems[Math.floor(lengthOfmergerItems/2)].remove()
+			}
+		}
+		function addFront(){
+			let element = document.createElement("div")
+			element.innerHTML = document.getElementById("text").value;
+			element.className = "merger"
+			element.style.color = "red"
+	
+			let parent = document.getElementsByClassName("merger")[0].parentNode
+			let childElement = document.getElementsByClassName("merger")[0]
+			parent.insertBefore(element,childElement)
+		}
+        function swap()
+  {
+    let mergerItemss = document.getElementsByClassName("merger")
+    let mergerItemssLength = mergerItemss.length
+    let firstElement = mergerItemss[Math.round(Math.random()*(mergerItemssLength-1))]
+    let secondElement = mergerItemss[Math.round(Math.random()*(mergerItemssLength-1))]
+
+    let parentElement = firstElement.parentNode
+    
+    const siblingA = firstElement.nextSibling === secondElement ? firstElement : firstElement.nextSibling;
+    secondElement.parentNode.insertBefore(firstElement, secondElement);
+    parentElement.insertBefore(secondElement, siblingA);
+  }
+		
+		</script>
+		</body>
+		</html>
